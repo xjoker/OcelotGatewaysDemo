@@ -1,0 +1,86 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/test",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/testa",
+      "UpstreamHttpMethod": ["Get"],
+      "ServiceName": "testapia",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "2s",
+        "PeriodTimespan": 2,
+        "Limit": 2
+      },
+      "Key": "testa",
+      "SwaggerKey": "testapia"
+    },
+    {
+      "DownstreamPathTemplate": "/api/test",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/testb",
+      "UpstreamHttpMethod": ["Get"],
+      "ServiceName": "testapib",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "2s",
+        "PeriodTimespan": 2,
+        "Limit": 20
+      },
+      "Key": "testb",
+      "SwaggerKey": "testapib"
+    }
+  ],
+  "Aggregates": [
+    {
+      "RouteKeys": [
+        "testa",
+        "testb"
+      ],
+      "UpstreamPathTemplate": "/testagg",
+      "Aggregator": "TestApiAggregator"
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "testapia",
+      "Config": [
+        {
+          "Name": "TestA API",
+          "Version": "v1",
+          "Url": "http://testapia:9060/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "testapib",
+      "Config": [
+        {
+          "Name": "TestB API",
+          "Version": "v1",
+          "Url": "http://testapib:9050/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://172.26.11.16:9070",
+    "ServiceDiscoveryProvider": {
+      "Scheme": "http",
+      "Host": "consul",
+      "Port": "8500",
+      "Type": "Consul"
+    },
+    "RateLimitOptions": {
+      "DisableRateLimitHeaders": false,
+      "QuotaExceededMessage": "Request too fast!",
+      "HttpStatusCode": 429
+    }
+  }
+}

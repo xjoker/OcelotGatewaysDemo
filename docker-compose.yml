@@ -1,0 +1,105 @@
+version: '3.4'
+
+networks:
+  dev-net:
+    driver: bridge
+
+services:
+  consul:
+    image: consul
+    ports:
+      - "8500:8500"
+    networks:
+      - dev-net
+
+  gateways:
+    image: ${DOCKER_REGISTRY-}gateways
+    build:
+      context: .
+      dockerfile: Gateways/Dockerfile
+    ports:
+      - "9070:9070"
+    environment:
+      - ASPNETCORE_URLS=http://+:9070
+    networks:
+      - dev-net
+    depends_on:
+      - consul
+      - testapia
+      - testapib
+
+  testapia:
+    image: ${DOCKER_REGISTRY-}testapia
+    build:
+      context: .
+      dockerfile: TestApiA/Dockerfile
+    ports:
+      - "9060:9060"
+    environment:
+      - ASPNETCORE_URLS=http://+:9060
+      - ConsulSetting_ServicePort=9060
+      - ConsulSetting_ServiceIP=testapia
+      - ConsulSetting_ServiceName=testapia
+      - ConsulSetting_ConsulAddress=http://consul:8500
+      - ConsulSetting_ServiceHealthCheck=/api/Test/Healthcheck
+    networks:
+      - dev-net
+    depends_on:
+      - consul
+
+  testapia_1:
+    image: ${DOCKER_REGISTRY-}testapia
+    build:
+      context: .
+      dockerfile: TestApiA/Dockerfile
+    ports:
+      - "9061:9061"
+    environment:
+      - ASPNETCORE_URLS=http://+:9061
+      - ConsulSetting_ServicePort=9061
+      - ConsulSetting_ServiceIP=testapia_1
+      - ConsulSetting_ServiceName=testapia
+      - ConsulSetting_ConsulAddress=http://consul:8500
+      - ConsulSetting_ServiceHealthCheck=/api/Test/Healthcheck
+    networks:
+      - dev-net
+    depends_on:
+      - consul
+
+  testapib:
+    image: ${DOCKER_REGISTRY-}testapib
+    build:
+      context: .
+      dockerfile: TestApiB/Dockerfile
+    ports:
+      - "9050:9050"
+    environment:
+      - ASPNETCORE_URLS=http://+:9050
+      - ConsulSetting_ServicePort=9050
+      - ConsulSetting_ServiceIP=testapib
+      - ConsulSetting_ServiceName=testapib
+      - ConsulSetting_ConsulAddress=http://consul:8500
+      - ConsulSetting_ServiceHealthCheck=/api/Test/Healthcheck
+    networks:
+      - dev-net
+    depends_on:
+      - consul
+
+  testapib_1:
+    image: ${DOCKER_REGISTRY-}testapib
+    build:
+      context: .
+      dockerfile: TestApiB/Dockerfile
+    ports:
+      - "9051:9051"
+    environment:
+      - ASPNETCORE_URLS=http://+:9051
+      - ConsulSetting_ServicePort=9051
+      - ConsulSetting_ServiceIP=testapib_1
+      - ConsulSetting_ServiceName=testapib
+      - ConsulSetting_ConsulAddress=http://consul:8500
+      - ConsulSetting_ServiceHealthCheck=/api/Test/Healthcheck
+    networks:
+      - dev-net
+    depends_on:
+      - consul
