@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SkyWalking", "SkyWalking", 
 		DockerSuppot\SkyWalking\docker-compose.yml = DockerSuppot\SkyWalking\docker-compose.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "..\Model\Model.csproj", "{CD2B8DA7-EED8-491B-A64D-FC732BA28AA2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,10 @@ Global
 		{64AAFAF4-27D9-43B0-B86D-17211E9EC188}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64AAFAF4-27D9-43B0-B86D-17211E9EC188}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64AAFAF4-27D9-43B0-B86D-17211E9EC188}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD2B8DA7-EED8-491B-A64D-FC732BA28AA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD2B8DA7-EED8-491B-A64D-FC732BA28AA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD2B8DA7-EED8-491B-A64D-FC732BA28AA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD2B8DA7-EED8-491B-A64D-FC732BA28AA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{4471F3F4-5084-457D-9992-07DFF8075637} = {A6D60237-3F41-4F3B-8D55-6DE7066E4E28}
 		{64AAFAF4-27D9-43B0-B86D-17211E9EC188} = {4471F3F4-5084-457D-9992-07DFF8075637}
 		{302FA42E-FCDE-49F1-ABD2-2D241665CA9C} = {9DAC6370-A180-4442-9E65-7832B6CF8F44}
+		{CD2B8DA7-EED8-491B-A64D-FC732BA28AA2} = {4471F3F4-5084-457D-9992-07DFF8075637}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AEAD4311-A2A9-4B8A-9578-A391134F63F5}

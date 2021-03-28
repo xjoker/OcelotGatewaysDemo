@@ -3,8 +3,8 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Gateways.Model;
 using Microsoft.AspNetCore.Http;
+using Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Ocelot.Middleware;
@@ -19,7 +19,8 @@ namespace Gateways.Aggregator
             var testapia = await responses[0].Items.DownstreamResponse().Content.ReadAsStringAsync();
             var testapib = await responses[1].Items.DownstreamResponse().Content.ReadAsStringAsync();
 
-            var resultObj = new JObject {{"testapia", JObject.Parse(testapia)}, {"testapib", JObject.Parse(testapib)}};
+            var resultObj = new JObject
+                {{"testapia", JObject.Parse(testapia)["data"]}, {"testapib", JObject.Parse(testapib)["data"]}};
 
 
             var result = JsonConvert.SerializeObject(new BaseResultModel(resultObj));

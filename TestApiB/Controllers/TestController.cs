@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using Model;
 
 namespace TestApiB.Controllers
 {
@@ -16,15 +16,12 @@ namespace TestApiB.Controllers
         }
 
         [HttpGet]
-        public string Get()
+        public IActionResult Get()
         {
-            var r = new
-            {
-                data =
-                    $"TestApiB - {DateTime.Now} - {Request.HttpContext.Connection.LocalIpAddress}:{Request.HttpContext.Connection.LocalPort}"
-            };
+            var r = new BaseResultModel(
+                $"TestApiB - {DateTime.Now} - {Request.HttpContext.Connection.LocalIpAddress}:{Request.HttpContext.Connection.LocalPort}");
 
-            return JsonConvert.SerializeObject(r);
+            return Ok(r);
         }
     }
 }
