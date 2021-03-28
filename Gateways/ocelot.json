@@ -10,7 +10,7 @@
         "Type": "RoundRobin"
       },
       "RateLimitOptions": {
-        "EnableRateLimiting": true,
+        "EnableRateLimiting": false,
         "Period": "2s",
         "PeriodTimespan": 2,
         "Limit": 2
@@ -28,7 +28,7 @@
         "Type": "RoundRobin"
       },
       "RateLimitOptions": {
-        "EnableRateLimiting": true,
+        "EnableRateLimiting": false,
         "Period": "2s",
         "PeriodTimespan": 2,
         "Limit": 20

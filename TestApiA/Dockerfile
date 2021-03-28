@@ -2,6 +2,7 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
+RUN apt-get update && apt-get install -y libc-dev && apt-get clean
 EXPOSE 80
 EXPOSE 443
 

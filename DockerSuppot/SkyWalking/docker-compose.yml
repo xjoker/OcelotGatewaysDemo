@@ -1,0 +1,43 @@
+version: "3.4"
+services:
+  elasticsearch7:
+    image: elasticsearch:7.11.2
+    container_name: es
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery.type=single-node
+      - TZ=Asia/Shanghai
+    deploy:
+      resources:
+        limits:
+          memory: 1000M
+
+  oap:
+    image: apache/skywalking-oap-server:8.4.0-es7
+    container_name: sw-oap
+    depends_on:
+      - "elasticsearch7"
+    links:
+      - elasticsearch7:elasticsearch
+    ports:
+      - 11800:11800
+      - 12800:12800
+    environment:
+      - SW_STORAGE=elasticsearch7
+      - SW_STORAGE_ES_CLUSTER_NODES=elasticsearch:9200
+      - TZ=Asia/Shanghai
+
+  oap-ui:
+    image: apache/skywalking-ui:8.4.0
+    container_name: sw-ui
+    depends_on:
+      - "oap"
+    links:
+      - oap:oap
+    ports:
+      - 8900:8080
+    environment:
+      - SW_OAP_ADDRESS=oap:12800
+      - TZ=Asia/Shanghai
